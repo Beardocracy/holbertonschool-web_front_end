@@ -7,21 +7,24 @@
 	--color-dark-grey: #353535;
 	--text-color: --color-black;
 }
+
 html {
 	scroll-behavior: smooth;
 }
+
 body {
 	color: var(--text-color);
 }
+
 a {
 	color: var(--text-color);
 }
+
 .visually-hidden {
 	display: none;
 }
-.card-category {
-	color: var(--color-primary);
-}
+
+.card-category,
 .section-tagline {
 	color: var(--color-primary);
 }
