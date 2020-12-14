@@ -49,7 +49,7 @@ a {
 }
 
 .section-header {
-	align-items: var(--section-header-align);
+	text-align: var(--section-header-align);
 }
 
 .card-category,
