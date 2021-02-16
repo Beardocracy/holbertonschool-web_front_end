@@ -35,7 +35,6 @@ function main(){
     document.getElementById("spookyBtn").onclick = spooky;
     document.getElementById("darkBtn").onclick = darkMode;
     document.getElementById("screamBtn").onclick = screamMode;
-
 }
 
 main();
