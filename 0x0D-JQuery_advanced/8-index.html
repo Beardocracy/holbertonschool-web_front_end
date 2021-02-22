@@ -50,7 +50,7 @@
                     .then(function(response) { return response.json(); })
                     .then(function(response) {
                         buildPagination(response.query.searchinfo.totalhits, 10, offset);
-                        $('ul:first').html("");
+                        $('ul:first').empty();
                         response.query.search.forEach(function (result) {
                             addNewArticle(result.pageid, result.title, result.snippet);
                         })
@@ -62,7 +62,7 @@
                 //console.log("number of items: " + numberOfItems);
                 //console.log("Current offset: " + currentOffset);
                 // Clear old pagination, if any
-                $('#pagination li').remove();
+                $('#pagination').empty();
                 // Create pagination
                 for (let i = 1; i < numberOfItems/itemsPerPage; i++) {
                     $('#pagination').append(`
@@ -75,7 +75,7 @@
                 // Change page upon click
                 $('#pagination li').click(function () {
                     let newOffset = ($(this).text() - 1) * 10;
-                    console.log("You want offset: " + ($(this).text() - 1) * 10 );
+                    //console.log("You want offset: " + ($(this).text() - 1) * 10 );
                     queryWikipedia($('input:first').val(), newOffset);
                 });
             }
