@@ -19,10 +19,10 @@
                 let email = document.getElementById('email').value;
                 let firstname = document.getElementById('firstname').value;
                 let d = new Date();
-                let expiration = `expires=${d.setTime(d.getTime() + (10*24*60*60*1000))}`;
-                document.cookie = `firstname=${firstname}`;
-                document.cookie = `email=${email}`;
-                document.cookie = expiration;
+                d.setTime(d.getTime() + (10*24*60*60*1000));
+                let expiration = d.toUTCString();
+                document.cookie = `firstname=${firstname}; expires=${expiration}; path=/`;
+                document.cookie = `email=${email}; expires=${expiration}; path=/`;
             }
             function showCookies() {
                 let p = document.createElement('p');
