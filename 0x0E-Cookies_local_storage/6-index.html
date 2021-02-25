@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Cookies/Local Storage 6</title>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    
+    </head>
+  
+    <body>       
+        <script type="text/javascript">
+            const availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+            function addItemToCart(item) {
+                    sessionStorage.setItem(item, true);
+            }
+            function createStore() {
+                let shoppingList = document.createElement('ul');
+                document.body.append(shoppingList);
+                availableItems.forEach( (item) => {
+                    let listItem = document.createElement('li');
+                    listItem.innerText = item;
+                    listItem.onclick = function () { addItemToCart(item); };
+                    shoppingList.append(listItem);
+                }
+            )}
+            function displayCart() {
+                if (sessionStorage.length) {
+                    let p = document.createElement('p');
+                    p.innerText = `You previously had ${sessionStorage.length} items in your cart`;
+                    document.body.append(p);
+                }
+            }
+
+
+            if (typeof(Storage) !== "undefined") {
+                createStore();
+                displayCart();
+            } else {
+                alert("Sorry, your browser does not support Web storage. Try again with a better one");
+            }
+
+        </script>
+
+    </body>
+
+</html>
