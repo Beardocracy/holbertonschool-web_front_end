@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Cookies/Local Storage 7</title>
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+    
+    </head>
+  
+    <body>       
+        <script type="text/javascript">
+            const availableItems = ['Shampoo', 'Soap', 'Sponge', 'Water'];
+
+            function getCartFromStorage() {
+                let cart = {};
+                if (sessionStorage.length) {
+                    cart = JSON.stringify(sessionStorage);
+                }
+                return cart;
+            }
+
+            function addItemToCart(item) {
+                if (sessionStorage.getItem(item)) {
+                    sessionStorage.setItem(item, parseInt(sessionStorage.getItem(item)) + 1);
+                } else {
+                    sessionStorage.setItem(item, 1);
+                }
+                displayCart();
+            }
+
+            function removeItemfromCart(item) {
+                sessionStorage.removeItem(item);
+                displayCart();
+            }
+
+            function clearCart() {
+                sessionStorage.clear();
+                displayCart();
+            }
+
+            function createStore() {
+                let h2 = document.createElement('h2');
+                h2.innerText = 'Available products:';
+                document.body.append(h2);
+                let shoppingList = document.createElement('ul');
+                document.body.append(shoppingList);
+                availableItems.forEach( (item) => {
+                    let listItem = document.createElement('li');
+                    listItem.innerText = item;
+                    listItem.onclick = function () { addItemToCart(item); };
+                    shoppingList.append(listItem);
+                })
+            }
+
+            function displayCart() {
+                if (document.getElementsByTagName('h2').length == 1) {
+                    let h2 = document.createElement('h2');
+                    h2.innerText = 'Your cart:';
+                    document.body.append(h2);
+                }
+                let cartList = document.getElementById('cartList');
+                if (cartList) {
+                    while (cartList.hasChildNodes()) {
+                        cartList.removeChild(cartList.firstChild);
+                    }
+                    cartList.remove();
+                }
+                let div = document.createElement('div');
+                div.setAttribute('id', 'cartList');
+                document.body.append(div);
+                updateCart();
+            }
+
+            function updateCart() {
+                let cartList = document.getElementById('cartList');
+                let topListItem = document.createElement('li');
+
+                if (sessionStorage.length == 0) {
+                    topListItem.innerText = 'Your cart is empty';
+                } else {
+                    topListItem.innerText = 'Clear my cart';
+                    topListItem.onclick = function () { clearCart(); };
+                }
+                cartList.append(topListItem);
+                
+                availableItems.forEach( (item) => {
+                    if (sessionStorage.getItem(item)) {
+                        let li = document.createElement('li');
+                        let remove = document.createElement('span');
+                        li.innerText = `${item} x ${sessionStorage.getItem(item)}`
+                        remove.innerText = '(remove)';
+                        remove.setAttribute('style', 'margin-left:10px;')
+                        remove.onclick = function () { removeItemfromCart(item); };
+                        li.append(remove);
+                        cartList.append(li);
+                    }
+                })
+            }
+
+            if (typeof(Storage) !== "undefined") {
+                createStore();
+                displayCart();
+            } else {
+                alert("Sorry, your browser does not support Web storage. Try again with a better one");
+            }
+        </script>
+
+    </body>
+
+</html>
